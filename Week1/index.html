@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
+    <title>todo</title>
+  </head>
+  <body>
+    <div class="container mt-3 box">
+      <div class="mx-auto w-50">
+        <div class="header">
+          <h1>ToDoList</h1>
+        </div>
+        <div class="content d-flex justify-content-between mt-5">
+          <input class="border-0" type="text" placeholder="輸入代辦事項" id="task" maxlength="8" 
+          style="font-size: 21px;">
+          <button class="btn" id="addInput">
+            <i class="fas fa-2x fa-plus-circle mx-auto" style="font-size: 21px;"></i>
+          </button>
+        </div>
+        <div>
+          <ul class="list-group list-group-flush" id="todoUl">
+
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+    <script src="all.js"></script>
+  </body>
+</html>

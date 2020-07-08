@@ -1,0 +1,48 @@
+body {
+    font-family: '微軟正黑體';
+}
+.card-box {
+    &:hover {
+        cursor: pointer;
+    }
+}
+.bg-cover {
+    background-size: cover;
+    background-position: center center;
+    height: 250px;
+}
+.index-bg {
+    background-repeat: repeat;
+    background-position: center center;
+}
+.border-0 {
+    border: none;
+}
+.text-bold {
+  font-weight: bold;
+}
+.tree {
+    background-color: #a05b00;
+}
+
+.icon-item1 {
+    position: absolute;
+    opacity: .7;
+    cursor: pointer;
+    right: 20px;
+    bottom: 120px;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.icon-item2 {
+    position: absolute;
+    opacity: .7;
+    cursor: pointer;
+    right: 10px;
+    bottom: 200px;
+    &:hover {
+        opacity: 1;
+    }
+}

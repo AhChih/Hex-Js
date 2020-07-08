@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    .completed {
+      text-decoration: line-through
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="container my-3">
+    <button id="get" class="btn btn-outline-primary">Get</button>
+    <button id="post" class="btn btn-outline-primary">Post</button>
+    <button id="patch" class="btn btn-outline-primary">Patch</button>
+    <button id="delete" class="btn btn-outline-primary">Delete</button>
+  </div>
+  <script>
+
+    document.querySelector('#get').addEventListener('click', getData);
+    document.querySelector('#post').addEventListener('click', postData);
+    document.querySelector('#patch').addEventListener('click', patchData);
+    document.querySelector('#delete').addEventListener('click', deleteData);
+    
+
+    var uuid = '4b6eb7de-9d99-4791-bbea-6b0b82d94cb8';
+    var token = 'q7lCOeKTfgTLL6FDxlV3s4E15QX3yIr6hYdT9RrqBtClFLSUQzgXlGCpwcUl';
+    var apiPath = 'https://course-ec-api.hexschool.io/';
+
+    // 小心，有錯～，請參考課程影片
+    var sampleData = {
+      title: '好茶',
+      category: 'tea',
+      content: '內容',
+      imageUrl: [
+        'https://images.unsplash.com/photo-1587918515749-a2a68b40a124?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
+      ],
+      enabled: true,
+      origin_price: 100,
+      price: 90,
+      unit: '杯',
+    }
+
+    axios.defaults.headers['Authorization'] = `Bearer ${token}`
+    // axios 設定說明：https://github.com/axios/axios#config-defaults
+
+    function getData() {
+    var api = `${apiPath}api/${uuid}/admin/ec/products`
+      axios.get(api).then((res) => {
+        console.log(res)
+      })
+    }
+
+    function postData() {
+    var api = `${apiPath}api/${uuid}/admin/ec/product`
+    var data = {
+      title: '櫻桃鴨肉',
+      category: 'sushi',
+      description: '握壽司',
+      content: '手握壽司是把用醋，砂糖和食鹽等調味後的米飯捏成一口量的小飯糰，再把生魚片等捏到飯糰上的日本傳統料理。',
+      imageUrl: [
+        'https://i.imgur.com/Nr2745b.png'
+      ],
+      enabled: true,
+      origin_price: 150,
+      price: 120,
+      unit: '貫',
+    }
+      axios.post(api, data).then((res) => {
+        console.log(res)
+      })
+    }
+
+    function patchData() {
+    var api = `${apiPath}api/${uuid}/admin/ec/product/T78zUuz2uOAAsrlpJKhxiqYx6MJo1WEcHYZ5WWfHq906VdakKT4miqFmJ0K4B3M3`
+    var data = {
+      title: '櫻桃鴨肉',
+      category: 'sushi',
+      description: '握壽司',
+      content: '手握壽司是把用醋，砂糖和食鹽等調味後的米飯捏成一口量的小飯糰，再把生魚片等捏到飯糰上的日本傳統料理。',
+      imageUrl: [
+        'https://i.imgur.com/Nr2745b.png'
+      ],
+      enabled: true,
+      origin_price: 100,
+      price: 90,
+      unit: '貫',
+    }
+      axios.patch(api, data).then((res) => {
+        console.log(res)
+      })
+    }
+    
+    function deleteData() {
+    var api = `${apiPath}api/${uuid}/admin/ec/product/bx1yhHb9fbECs5AxBfRJCrKBLttIc1O5y16z3lc2mExPe81TBsVUR3VP9qRhhXKF`
+      axios.delete(api).then((res) => {
+        console.log(res)
+      })
+    }
+
+  </script>
+</body>
+</html>

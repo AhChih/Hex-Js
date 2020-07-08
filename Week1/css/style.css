@@ -1,0 +1,21 @@
+.box .header {
+    padding: 0;
+    border-bottom: 0;
+  }
+  
+  .box .header h1 {
+    text-align: center;
+    color: #ffcc99;
+    background-color: white;
+  }
+  
+  .box .content input {
+    background: none;
+    outline: none;
+    border: 0px;
+  }
+  
+  .box .content input:focus {
+    color: #5e3d3d;
+  }
+  /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,24 @@
+@mixin egg {
+  color: #ffcc99;
+}
+
+.box {
+.header {
+    padding: 0;
+    border-bottom: 0;
+  h1 {
+      text-align: center;
+      color: $egg;
+      background-color: rgb(255, 255, 255)
+  }
+}
+.content {
+    input {
+      background:none;  
+      outline:none;  
+    }
+
+}
+}
+
+
