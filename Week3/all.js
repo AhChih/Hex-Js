@@ -10,7 +10,7 @@ var app = new Vue({
           "手握壽司是把用醋，砂糖和食鹽等調味後的米飯捏成一口量的小飯糰，再把生魚片等捏到飯糰上的日本傳統料理。",
         description: "好棒棒壽司",
         imageUrl: "https://i.imgur.com/Nr2745b.png",
-        enabled: 1,
+        enabled: 0,
         origin_price: 120,
         price: 100,
         unit: "貫",
@@ -23,13 +23,15 @@ var app = new Vue({
           "手握壽司是把用醋，砂糖和食鹽等調味後的米飯捏成一口量的小飯糰，再把生魚片等捏到飯糰上的日本傳統料理。",
         description: "好棒棒壽司",
         imageUrl: "https://i.imgur.com/wDy7w17.png",
-        enabled: 1,
+        enabled: 0,
         origin_price: 120,
         price: 100,
         unit: "貫",
       },
     ],
-    tempProduct: {},
+    tempProduct: {
+      enabled: 0
+    },
   },
   methods: {
     updateProduct(){
@@ -51,15 +53,18 @@ var app = new Vue({
       if (data.id){
         this.products.forEach((item, i)=> {
           if(data.id === item.id){
-            if(item.is_enabled){
+            if(item.enabled){
               this.products[i].enabled = 0
             } else {
               this.products[i].enabled = 1
-              console.log(this.products[i].enabled)
             }
           }
         })
       }
+    },
+    addProduct(){
+      this.tempProduct = {}
+      $("#editModal").modal("show");   
     },
     editModal(data) {
       this.tempProduct = JSON.parse(JSON.stringify(data))
