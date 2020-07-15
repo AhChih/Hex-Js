@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app" class="container mt-3">
+    <h1>請調整 C1 的程式碼，讓 Event Bus 可運作</h1>
+    <C1></C1>
+    <C2></C2>
+  </div>
+
+  <script>
+    // 跨元件傳遞
+    Vue.prototype.$bus = new Vue();
+
+
+    Vue.component('C1', {
+      data() {
+        return {
+          someData: '這是元件1'
+        }
+      },
+      template: `<div>
+        <input type="text" v-model="someData"/>
+        <button @click="">更新</button>
+      </div>
+      `,
+      methods: {
+        updateData() {
+          this.$bus.$emit('update', this.someData);
+        }
+      }
+    });
+    Vue.component('C2', {
+      data() {
+        return {
+          someData: '這是元件2，目前還沒更新'
+        }
+      },
+      template: `<div>{{ someData }}</div>`,
+      created() {
+        this.$bus.$on('update', (參數)=> {
+          console.log('update', 參數);
+          this.someData = 參數;
+        })
+      }
+    });
+
+    var app = new Vue({
+      el: '#app',
+    });
+
+  </script>
+</body>
+
+</html>

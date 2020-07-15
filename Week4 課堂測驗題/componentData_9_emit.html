@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app" class="container mt-3">
+    <h1>請讓內層傳遞到外層</h1>
+    <card @howtoemit="howToReceive"></card>
+  </div>
+
+  <script type="text/x-template" id="forCardTemplate">
+    <div style="max-width:300px">
+      <input type="text" v-model="content">
+      <button @click="innerFn">送出</button>
+    </div>
+  </script>
+
+  <script>
+    Vue.component('card', {
+      template: '#forCardTemplate',
+      data() {
+        return {
+          content: '內層參數'
+        }
+      },
+      methods: {
+        innerFn() {
+          this.$emit('howtoemit', this.content)
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        text: '這裡是預設文字',
+      },
+      methods: {
+        howToReceive(para) {
+          console.log('外層函式', para)
+        }
+      }
+    });
+
+  </script>
+</body>
+
+</html>
