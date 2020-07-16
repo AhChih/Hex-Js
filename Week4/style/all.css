@@ -21,6 +21,7 @@ body {
 }
 
 .table-body td {
+  border-top: 0;
   vertical-align: middle;
 }
 /*# sourceMappingURL=all.css.map */

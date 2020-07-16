@@ -6,7 +6,11 @@ new Vue({
     data: {
         products: [],
         tempProduct: {
-            imgUrl: [],
+          imageUrl: [],
+        },
+        isNewProduct: false,
+        status: {
+            upLoading: false
         },
         user: {
             token: '',
@@ -17,10 +21,33 @@ new Vue({
       getProducts() {
         const api = `${apiPath}${this.user.uuid}/admin/ec/products`
         axios.defaults.headers.common.Authorization = `Bearer ${this.user.token}`;
+
         axios.get(api).then((res) => {
             this.products = res.data.data
             console.log(res)
         })
+      },
+      updateProduct() {
+        if (this.isNewProduct) {
+          const api = `${apiPath}${this.user.uuid}/admin/ec/product`
+          axios.post(api, this.tempProduct).then(() => {
+          $("#editModal").modal("hide")
+          this.getProducts()
+          })
+        } else {
+          const api = `${apiPath}${this.user.uuid}/admin/ec/product/${this.tempProduct.id}`
+          axios.patch(api, this.tempProduct).then(() => {
+            $("#editModal").modal("hide")
+            this.getProducts()
+          })
+        }
+      },
+      OpenAddModal() {
+        this.tempProduct = {
+          imageUrl: [],
+        }
+        this.isNewProduct = true
+        $("#editModal").modal("show")
       },
       OpenDelModal(data) {
         this.tempProduct = Object.assign({}, data)
@@ -28,6 +55,7 @@ new Vue({
       },
       OpenEditModal(data) {
       this.tempProduct = JSON.parse(JSON.stringify(data))
+      this.isNewProduct = false
       $("#editModal").modal("show");  
       },
       delProduct(id) {
@@ -38,6 +66,28 @@ new Vue({
             this.getProducts()
         })
       },
+      uploadFile() {
+        const uploadFile = document.querySelector('#customFile').files[0]
+        const formData = new FormData()
+        formData.append('file', uploadFile)
+
+        const url = `${apiPath}${this.user.uuid}/admin/storage`
+        this.status.upLoading = true
+        axios.post(url, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }).then((res) => {
+            this.tempProduct.imageUrl.push(res.data.data.path)
+            if (this.isNewProduct == false){
+              this.tempProduct.imageUrl = []
+                this.tempProduct.imageUrl.push(res.data.data.path)
+                this.status.upLoading = false
+            }
+        }).catch(() => {
+          this.status.upLoading = false
+        })
+      }
     },
     created() {
         this.user.token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");

@@ -13,7 +13,7 @@
   <div id="app">
     <div class="container">
       <div class="text-right">
-        <button class="btn btn-primary mt-3">
+        <button class="btn btn-primary mt-3" @click="OpenAddModal">
           建立新產品
         </button>
         <table class="table mt-3">
@@ -134,11 +134,21 @@
               </div>
               <div class="row">
                 <div class="col-md-12 form-group">
-                  <label for="imageUrl">圖片網址</label>
-                  <input id="imageUrl" v-model="tempProduct.imageUrl" type="text" class="form-control" placeholder="請輸入圖片連結"/>
+                  <div v-for="i in 1" :key="i + 'img'" class="form-group">
+                    <label :for="'img' + i">輸入圖片網址</label>
+                    <input :id="'img' + i" v-model="tempProduct.imageUrl[i - 1]" type="text" class="form-control"
+                      placeholder="請輸入圖片連結">
+                  </div>
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="customFile">
+                   上傳圖片
+                   <i v-if="status.upLoading" class="fas fa-spinner fa-spin"></i>
+                  </label>
+                  <input id="customFile" ref="file" type="file" class="form-control" @change="uploadFile">
                 </div>
                 <div class="col-md-12 text-center">
-                  <img class="img-fluid img-thumbnail" :src="tempProduct.imageUrl" alt/>
+                  <img class="img-fluid img-thumbnail" :src="tempProduct.imageUrl[0]" alt/>
                 </div>
               </div>
               <!-- <div class="form-group">
