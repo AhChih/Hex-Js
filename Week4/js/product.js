@@ -78,11 +78,11 @@ new Vue({
             'Content-Type': 'multipart/form-data',
           },
         }).then((res) => {
+          this.status.upLoading = false
             this.tempProduct.imageUrl.push(res.data.data.path)
             if (this.isNewProduct == false){
               this.tempProduct.imageUrl = []
                 this.tempProduct.imageUrl.push(res.data.data.path)
-                this.status.upLoading = false
             }
         }).catch(() => {
           this.status.upLoading = false

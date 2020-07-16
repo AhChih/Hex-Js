@@ -136,7 +136,7 @@
                 <div class="col-md-12 form-group">
                   <div v-for="i in 1" :key="i + 'img'" class="form-group">
                     <label :for="'img' + i">輸入圖片網址</label>
-                    <input :id="'img' + i" v-model="tempProduct.imageUrl[i - 1]" type="text" class="form-control"
+                    <input :id="'img' + i" v-model="tempProduct.imageUrl[0]" type="text" class="form-control"
                       placeholder="請輸入圖片連結">
                   </div>
                 </div>
