@@ -143,7 +143,9 @@
                 <div class="form-group col-md-12">
                   <label for="customFile">
                    上傳圖片
-                   <i v-if="status.upLoading" class="fas fa-spinner fa-spin"></i>
+                   <div v-if="status.upLoading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                   </div>
                   </label>
                   <input id="customFile" ref="file" type="file" class="form-control" @change="uploadFile">
                 </div>
@@ -151,14 +153,14 @@
                   <img class="img-fluid img-thumbnail" :src="tempProduct.imageUrl[0]" alt/>
                 </div>
               </div>
-              <!-- <div class="form-group">
+              <div class="form-group">
                 <div v-if="tempProduct.enabled">
                   <span @click.prevent="isEnabled(tempProduct)"><a href="#"><i class="fas fa-toggle-on fa-2x"></i></a></span>
                 </div>
                 <div v-else>
                   <span><a href="#" @click.prevent="isEnabled(tempProduct)"><i class="fas fa-toggle-off fa-2x"></i></a></span>
                 </div>
-              </div> -->
+              </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                   取消
