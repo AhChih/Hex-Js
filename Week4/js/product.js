@@ -87,7 +87,22 @@ new Vue({
         }).catch(() => {
           this.status.upLoading = false
         })
-      }
+      },
+      isEnabled(data) {
+        this.products.forEach((item, i)=> {
+          if(data.id === item.id){
+            if(item.enabled){
+              const api = `${apiPath}${this.user.uuid}/admin/ec/product/${data.id}`
+              axios.patch(api, data).then(() => {
+                this.getProducts()
+              })
+              this.products[i].enabled = 0
+            } else {
+              this.products[i].enabled = 1
+            }
+          }
+        })
+      },
     },
     created() {
         this.user.token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
