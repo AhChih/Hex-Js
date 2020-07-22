@@ -93,6 +93,11 @@ export default {
     </div>
   </div>`,
   props: ['data'],
+  data() {
+    return {
+
+    }
+  },
   methods: {
     updateProduct() {
       this.$emit('update-product')

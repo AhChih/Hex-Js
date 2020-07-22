@@ -56,9 +56,7 @@
         </table>
       </div>
       <pagination :pages="pagination" @update="getProducts"></pagination>  
-      <!-- delModal-->
       <delmodel :data="tempProduct" @delete="delProduct"></delmodel>
-      <!-- editModal-->
       <editmodel :data="tempProduct" @update-product="updateProduct" @upload-file="uploadFile" @update-enabled="enabledModal"></editmodel>
     </div>
   </div>

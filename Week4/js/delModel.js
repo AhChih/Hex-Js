@@ -24,6 +24,11 @@ export default {
     </div>
   </div>`,
   props: ['data'],
+  data() {
+    return {
+
+    }
+  },
   methods: {
     delProduct(id){
     this.$emit('delete', id)

@@ -13,6 +13,11 @@ export default {
     </ul>
   </nav> `,
   props: ['pages'],
+  data() {
+    return {
+
+    }
+  },
   methods: {
     updatePage(num) {
       this.$emit('update', num)
