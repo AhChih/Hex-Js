@@ -1,10 +1,18 @@
-const uuid = '4b6eb7de-9d99-4791-bbea-6b0b82d94cb8'
+import pagination from './pagination.js'
+import delModel from './delModel.js'
+import editModel from './editModel.js'
+
+Vue.component('pagination', pagination)
+Vue.component('delmodel', delModel)
+Vue.component('editmodel', editModel)
+
 const apiPath = 'https://course-ec-api.hexschool.io/api/'
 
 new Vue({
     el: '#app',
     data: {
         products: [],
+        pagination: {},
         tempProduct: {
           imageUrl: [],
         },
@@ -18,13 +26,13 @@ new Vue({
     }
 },
     methods: {
-      getProducts() {
-        const api = `${apiPath}${this.user.uuid}/admin/ec/products`
+      getProducts(num =1) {
+        const api = `${apiPath}${this.user.uuid}/admin/ec/products?page=${ num }`
         axios.defaults.headers.common.Authorization = `Bearer ${this.user.token}`;
 
         axios.get(api).then((res) => {
             this.products = res.data.data
-            console.log(res)
+            this.pagination = res.data.meta.pagination
         })
       },
       updateProduct() {
@@ -44,6 +52,7 @@ new Vue({
       },
       OpenAddModal() {
         this.tempProduct = {
+          enabled: false,
           imageUrl: [],
         }
         this.isNewProduct = true
@@ -88,20 +97,29 @@ new Vue({
           this.status.upLoading = false
         })
       },
-      isEnabled(data) {
-        this.products.forEach((item, i)=> {
-          if(data.id === item.id){
-            if(item.enabled){
-              const api = `${apiPath}${this.user.uuid}/admin/ec/product/${data.id}`
-              axios.patch(api, data).then(() => {
-                this.getProducts()
-              })
-              this.products[i].enabled = 0
-            } else {
-              this.products[i].enabled = 1
-            }
-          }
-        })
+      isEnabled(data){
+        this.tempProduct = JSON.parse(JSON.stringify(data))
+        if(this.tempProduct.enabled){
+          this.tempProduct.enabled = false
+          const api = `${apiPath}${this.user.uuid}/admin/ec/product/${this.tempProduct.id}`
+          axios.patch(api, this.tempProduct).then(() => {
+            this.getProducts()
+          })
+        } else {
+          this.tempProduct.enabled = true
+          const api = `${apiPath}${this.user.uuid}/admin/ec/product/${this.tempProduct.id}`
+          axios.patch(api, this.tempProduct).then(() => {
+            this.getProducts()
+          })
+        }
+      },
+      enabledModal() {
+        console.log(this.tempProduct.enabled)
+        if(this.tempProduct.enabled){
+          this.tempProduct.enabled = false
+        } else {
+          this.tempProduct.enabled = true
+        }
       },
     },
     created() {
